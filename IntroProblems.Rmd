@@ -1,0 +1,131 @@
+---
+title: "Calc2S1.1"
+output:
+  pdf_document: default
+  html_document: default
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+options(knitr.duplicate.label = "allow")
+```
+
+## R Markdown
+
+This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
+
+When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this:
+
+
+1.4 and 1.5: Exponential Growth and Decay and Function Manipulation
+
+R: how to calculate functions and plot.  How to take differences and plot. 
+We'll begin by  first plot $2^x$
+```{r}
+x <- c(-13, -5, -4, -3, -2, -1, 0,1,2,3,4,5,6,7,8,10,20,101)
+plot(x, 2^x, main = "y = 2^x", ylab = "2^x", type = "l", col = "blue" )
+
+```
+As $x$ increases, the function tends to infinity, blows up
+
+Given $y = 2^x$ lets try to plot $ln(y)$ against x. $ln(y)  = xln2$:
+**Note that in R natural log(ln) appears as log, and other defined logarithms with bases appear as log10, log2 e.t.c
+```{r}
+x <- c(-10, -5, -4, -3, -2, -1, 0,1,2,3,4,5,6,7,8,10,20,100)
+plot(x, x*log(2), main = "ln y plot (y = x(log(2))", ylab = "x(log(2))", type = "l", col = "blue")
+```
+What do we observe about the slope of of the function?
+We'll try log base 10 as well: 
+```{r code}
+x <- c(-10, -7, -5, -4, -3, -2, -1, 0,1,2,3,4,5,6,7,8,10,20,100)
+plot(x, x*log10(2), main = "ln y plot (y = x(log_10(2))", ylab = "x(log_10(2))", type = "l", col = "blue")
+```
+Next up we'll create a few data points to plot: $y = 3 ^ x$: 
+I'll pick a few plotting points using for my x values and use the function $plot$ to make my plot
+```{r}
+
+x <- c(-11, -6, -5, -3, -2, -1, 0,1,2,3,4,5,6,7,8,10,20,100)
+plot(x, 3^x, main = "Exponential Func", ylab = "y", type = "l", col = "blue" )
+```
+
+We'll do the same for $1/2^x$:
+```{r}
+x <- c(-11, -6, -5, -3, -2, -1, 0,1,2,3,4,5,6,7,8,10,20,100)
+plot(x, 1/2^x, main = "Exponential Function", ylab = "y", type = "l", col = "blue" )
+```
+
+Now let $y = 2^x$ we'll attempt to plot $ln(y)$ which in R is written as $log (y)$ such that $log(y) = xlog2$.
+Then we'll plot it to observe: 
+```{r}
+x <- c(-11, -6, -5, -3, -2, -1, 0,1,2,3,4,5,6,7,8,10,20,100)
+plot(x, x * log(2), main = "y = x (log 2)", ylab = "y", type = "l", col = "blue" )
+```
+
+What do we observe to be the slope of the line?
+
+On our next exercise, we'll try to plot the derivative of $y$ against $y$ 
+
+For $y = 2^x$: $d(2^x)/dx = 2^x log(2)$ Then we plot:
+```{r}
+x <- c(-11, -6, -5, -3, -2, -1, 0,1,2,3,4,5,6,7,8,10,20,100)
+plot((2^x), (2^x) * log(2), main = "y = (2^x)(log (2))", ylab = "y", type = "l", col = "blue" )
+```
+What do we observe the slope of the line to be? 
+
+For $y = 3^x$: $d(3^x)/dx = 3^x log(3)$ Then we plot:
+
+```{r}
+x <- c(-12, -6, -5, -4, -3, -2, -1, 0,1,2,3,4,5,6,7,8,10,20,100)
+plot((3^x), (3^x) * log(3), main = "y = (3^x)(log (3))", ylab = "y", type = "l", col = "blue" )
+```
+Can you repeat the same for $(1/2)^x$? 
+Observe and try to explain what is happening in the plots
+
+
+$\textbf{1.6 Inverse Functions- Logs and Inverse Trigs(Convert Lecture 4 into worksheet inverse trigs)}$
+
+We'll tan(x) for x in $[2-2]$: 
+```{}
+x <- c(-1.9, -1.8, -1.6, -1.4, -1.2, -1, 0,1.1,1.2,1.4,1.6,1.8,1.9)
+plot(x, tan(x), main = "y = tan(x)", ylab = "y", type = "l", col = "blue" )
+```
+Is tangent invertible? 
+Plot $arctan(x)$ (atan(x)) in R) for x in $[-2, 2]$:
+```{}
+x <- c(-1.9, -1.8, -1.6, -1.4, -1.2, -1, 0,1.2,1.4,1.6,1.8,1.9)
+plot(x, atan(x), main = "y = tan(x)", ylab = "y", type = "l", col = "blue" )
+```
+
+Find the derivative of $arctan(x)$. Then taking $y = arctan(x)$ we'll plot $dy/dx$ against $x$. 
+
+```{}
+x <- c(-2, -1.8, -1.6, -1.4, -1.2, -1, 0,1.2,1.4,1.6,1.8,2)
+plot(x, (1)/(1 + (x^2)), main = "y = d(arctan(x)) /dx", ylab = "y", type = "l", col = "blue" )
+```
+
+What function does this look like?
+Then plot the derivative you found on top of the $dy/dx$ plot above. What do you notice? 
+
+
+$\textbf{1.7 Sequences and Difference Equations}$ - 
+a representation data collected at discrete intervals of time.(A sequence is an infinite list of terms since the domain N has infinitely many terms, $a_n$ is the general term) Difference equations specifies how to obtain the next term in the sequence from the preceding terms. An equilibrium point of a difference equation i.e $a_{n+1} = f(a_n)$ is an initial value $a_1$ such that $f(a_1) = a_1$
+
+
+2.5 Exploring equilibrium - Program the Bellows 
+
+The bellows model for population density of grain beetles:
+$x_{n+1} = \frac{rx_n}{1+(ax_n)^b}$ - This is the generalized Bevelton - Holt model. We have that $r = 2$, $a = 0.01$ , $x^* = 100$. 
+We will explore what equilibrium points mean for this system/model in relation to other solutions with different starting points:
+Lets first explore $n = 50$ with $x_1 = 99$ for two cases $b = 3$ and $b = 6$
+$\textbf{First case with b = 3}$
+```{r code}
+x <- c(99, 100, 101, 102, 103, 104, 105, 106, 107, 108, 109, 110, 111, 112,113, 114, 115, 116, 117, 118, 119, 120, 121, 122, 123, 124, 125, 126, 127, 128, 129, 130, 131, 132, 133, 134, 135, 136, 137, 138, 139, 140, 141, 142, 143, 144,145, 146, 147, 148, 149)
+plot(x, (2*x)/(1 + (0.01 * x)^3), main = "y = Bellows model", ylab = "y", type = "l", col = "blue")
+```
+ 
+
+
+
+
+
+Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
