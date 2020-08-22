@@ -1,0 +1,31 @@
+---
+title: "Bellows - Exploring Equilibrium"
+author: "personX"
+date: "8/22/2020"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## R Markdown
+
+#This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
+
+#When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this:
+
+2.5 Exploring equilibrium - Program the Bellows 
+
+The bellows model for population density of grain beetles:
+$x_{n+1} = \frac{rx_n}{1+(ax_n)^b}$ - This is the generalized Bevelton - Holt model. We have that $r = 2$, $a = 0.01$ , $x^* = 100$. 
+
+We will explore what equilibrium points mean for this system/model in relation to other solutions with different starting points:
+
+Lets first explore $n = 50$ with $x_1 = 99$ for two cases $b = 3$ and $b = 6$
+$\textbf{First case with b = 3}$
+```{r code}
+b = 3 # we'll start with b = 3
+x <- seq(99, 150, by = 1) # I am creatimg a data set beginning from 99 to 150(exclusive) with increaments of 1 (for n = 50)
+plot(x, (2*x)/(1 + (0.01 * x)^b), main = "y = Bellows model", ylab = "y", type = "l", col = "blue")
+```
