@@ -1,0 +1,204 @@
+---
+title: "Project1-KillCurves"
+author: "Kenneth"
+date: "7/16/2020"
+output: html_document
+---
+#Welcome to R! If this is your first time interacting with code do not panic, R is a useful mathematical tool that will make your work easier when making plots, analyzing data or manipulating functions/models.
+
+#R is a notebook like compiled language, meaning that a chunk of code can be run independent of any other as long as all required variables are available in memory or within the chunk. It also allows you to create a final neat looking HTML / PDF file when you click on "Knit". You can try to it now to check this out what this file looks like! 
+
+#Please don't try to understand the following chunk, its not necessary, but you'll need to click the little green button on the top right since the statements in the chunk will affect the variables implemented in the subsequent chunks.
+
+ 
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+options(knitr.duplicate.label = "allow")
+```
+
+$\textbf{Project 1: Kill Curves}$
+
+We are studying the relationship between the magnitude of antibiotic treatment and the effectiveness of the treatment. The extent of bacterial killing by an antibiotic is determined by both the antibiotic concentration profile and the dose response relationship.
+Fig.1 and Fig. 2 below show these plots for the antibiotic ciproflaxacin when used against E. coli. The decay of antibiotic concentration is well modeled by the equation
+
+#Note to self: Try to figure out how to upload the image here
+
+
+$c(t) = c_0e − kt (1)$
+where c0 is the concentration at $t = 0$ and $k$ is a positive constant. In Fig. 2 it looks like the dose response relationship doesn’t vary much up to a concentration of around $0.013μg/mL$. It then drops suddenly to a low value and remains relatively constant as the antibiotic concentration increases further. We model the dose response in this case using:
+
+$\begin{equation} r(c) = \begin {cases} 
+6*exp(t/3), & \text{if t\leq 2.08}.\\
+12, & \text{t > 2.08}
+\end{cases}
+\end{equation}$
+
+
+where MIC is a constant that is referred to as the minimum inhibitory concentration ($MIC = 0.013$ in this case).
+
+
+Problems (each problem is worth 5 points):
+Plot P (t) as a function of time for each of the concentrations $\textrm{c_0 = 0, 0.019, 0.038, 0.075, 0.15, 0.3, 0.61.2.}$
+These are the kill curves predicted by the model we set up. Comment on the similarities and differences between the predicted curves and those from the data in Fig. 5 below.
+
+
+
+To help us solve for the constants $a$, $b$, and $A$, we'll create the following functions:
+```{r code}
+# i'll define a function 'a' that takes in c_o (Recall that in R log is the same as ln, for other log bases you have to explicitly declare i.e log10 for base 10, log2 for base 2)
+a <- function(c_o) {
+  a_value <- 5.7 *log(77*c_o)
+  return(a_value)
+  # Now we can call this function with different values of c_o anytime we need to calculate 'a'. (Remember to run this chunk) 
+}
+
+# similarly for b
+b <- function(c_o) {
+  b_value <- (6.6 * log(77 * c_o)) + 2.08
+  return(b_value)
+}
+
+# for A (uppercase A)
+A <- function(c_o) {
+  A_value <- (77 * c_o) ^(-2.2)
+  return(A_value)
+}
+
+t <- seq(0, 35, by = 0.01) #This helps us create a data set with 0.01 increments
+p <- 0*t   # This will be a place holder for a set where we can insert data for p when the function changes
+for (i in 1:length(t)){
+  if (t[i] < 2.08) { 
+    # when t < 2.08 we have p(t) taking the function:
+    p[i] = 6*exp(t[i]/3)} else {
+      # else we only use 12
+      p[i] = 12
+    }
+}
+plot(t, p, main = "y = p(t) for t < 2.08", ylab = "p(t)", type = "l", col = "black" , ylim = c(0,15), pch = 8)
+# I'll create a new data set p1 to insert data from the new function descriptors
+
+p1 <- 0*t
+for (i in 1:length(t)) {
+  if (t[i] < a(0.038)) {
+    p1[i] = 6 * exp((-t[i])/20)
+  }
+  else if (a(0.038) <= t[i] && t[i] < b(0.038)){
+    p1[i] = 6 * (A(0.038)) * exp(t[i]/3)
+    
+  }else if (t[i] >= b(0.038)) {
+    p1[i] = 12
+  }
+}
+# Then i'll plot it into the same chart as the initial one, so i'll use the function 'lines' instead of plot
+lines(t, p1, col = "red")    
+
+p2 <- 0*t 
+for (i in 1:length(t)) {
+  if (t[i] < a(0.075)) {
+    p2[i] = 6 * exp((-t[i])/20)
+  }
+  else if (a(0.075) <= t[i] && t[i] < b(0.075)) {
+    p2[i] = 6 * A(0.075) * exp(t[i]/3)
+  }
+  else if (t[i] >= b(0.075)) {
+    p2[i] = 12
+  }
+}
+
+lines(t, p2, col = "green")
+
+
+
+
+#3rd plot
+p3 <- 0*t 
+for (i in  1:length(t)) {
+  if (t[i] < a(0.15)) {
+    p3[i] = 6 * exp((-t[i])/20)
+  }
+  else if (a(0.15) <= t[i]  && t[i] < b(0.15)) {
+    p3[i] = 6 * A(0.15) * exp(t[i]/3)
+  }
+  else if (t[i] >= b(0.15)){
+    p3[i] =12
+  }
+}
+
+lines(t, p3, col = "blue")
+
+#4th  plot
+p4 <- 0*t  
+for (i in 1:length(t)) {
+  if (t[i] < a(0.3)) {
+    p4[i] = 6 * exp((-t[i])/20)
+  }
+  else if (a(0.3) <= t[i] && t[i] < b(0.3)){
+    p4[i] = 6 * A(0.3) * exp(t[i]/3)
+  }
+  else if (t[i] >= b(0.15)) {
+    p4[i] = 12
+  }
+}
+
+lines(t, p4, col = "purple")
+
+
+#5th plot
+p5 <- 0*t
+for (i in 1:length(t)) {
+  if (t[i] < a(0.612)) {
+      p5[i] = 6* exp((-t[i])/20)
+  }
+  else if (a(0.612)  <= t[i]  && t[i] < b(0.612)) {
+    p5[i] = 6* A(0.0612) * exp(t[i]/3)
+  }
+  else if (t[i] >= b(0.62)) {
+    p5[i] = 12
+  }
+}
+
+lines(t, p4, col = "yellow")
+
+
+
+legend("topright", legend = c("First graph", "second graph"), col = c("blue", "red"), lty = c(1,1), lwd = c(2,4))
+```
+
+2. Next, we try to summarize the kill curves from (1) above in order to see more clearly the relationship between the magnitude of antibiotic treatment and its predicted effectiveness. Three measurements are used for this purpose
+• the peak antibiotic concentration divided by MIC, denoted by ρ.
+• the duration of time for which the antibiotic concentration remains above MIC, denoted
+by τ.
+• the area under the antibiotic concentration profile divided by MIC, denoted by α.
+These measures are illustrated below in Fig. 6.
+
+It can be shown that $α = k MIC$ . Sketch the graphs of ρ, τ, α as functions of c0, using the
+values of k = 0.175 (1/hour) and MIC = 0.013μg/mL. What are the units of each quantity?
+
+# Insert image here
+
+Find expression for $ρ$,$τ$ in terms of $k$,$c_0$ and $MIC$, using equation (1) for the antibiotic concentration profile
+
+# Solution goes here
+3. Plot $ρ$,$τ$ and $α$ on the same graph with $c_0$ from 0 to 1.5.
+Hints come up with functions to describe expressions and call the plot function
+
+
+
+4. 
+
+
+
+6 & 7 & 8: We ask them to find the expression and plot it.
+
+
+
+
+## R Markdown
+
+$\textbf{This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.}$
+
+
+
+
+$\textbf{Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.}$
