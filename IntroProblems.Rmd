@@ -4,13 +4,16 @@ output:
   pdf_document: default
   html_document: default
 ---
+
 #Welcome to R! If this is your first time interacting with code do not panic, R is a useful mathematical tool that will make your work easier when making plots, analyzing data or manipulating functions/models.
 
 #R is a notebook like compiled language, meaning that a chunk of code can be run independent of any other as long as all required variables are available in memory or within the chunk. It also allows you to create a final neat looking HTML / PDF file when you click on "Knit". You can try to it now to check this out what this file looks like! 
 
 #Please don't try to understand the following chunk, its not necessary, but you'll need to click the little green button on the top right since the statements in the chunk will affect the variables implemented in the subsequent chunks.
 
+# To read functions/varaibles better, hover with the cursor/pointer to read the LaTex **LaTex objects are enclosed in the dollar signs
 
+#Checkout the TODO's and read through the green comments for better understanding
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
@@ -18,59 +21,64 @@ options(knitr.duplicate.label = "allow")
 ```
 
 ## R Markdown
-
 #This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
+#When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like the one above.
 
-#When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this:
+1.4 and 1.5: Exponential Growth, Decay and Function Manipulation
 
-
-#Checkout the TODO's and read through the green comments for better understanding
-
-1.4 and 1.5: Exponential Growth and Decay and Function Manipulation
-
-R: how to calculate functions and plot.  How to take differences and plot. 
-We'll begin by  first plot $2^x$
+R Objectives: How to make functions and plots in R. 
+We'll begin by  first plot $y = 2^x$ or $f(x) = 2^x$
 ```{r}
-x <- c(-13, -5, -4, -3, -2, -1, 0,1,2,3,4,5,6,7,8,10,20,101)
+x <- c(-13, -5, -4, -3, -2, -1, 0,1,2,3,4,5,6,7,8,10,20,101) # Creating x values in a data set
 plot(x, 2^x, main = "y = 2^x", ylab = "2^x", type = "l", col = "blue" )
 
 ```
-As $x$ increases, the function tends to infinity, blows up
+
+TODO: How does the function change as $x$ increases?
+
 
 Given $y = 2^x$ lets try to plot $ln(y)$ against x. $ln(y)  = xln2$:
 **Note that in R natural log(ln) appears as log, and other defined logarithms with bases appear as log10, log2 e.t.c
 ```{r}
+y = (x*log(2)) # always make sure your 'y' function is enclosed in parenthesis
 x <- c(-10, -5, -4, -3, -2, -1, 0,1,2,3,4,5,6,7,8,10,20,100)
-plot(x, x*log(2), main = "ln y plot (y = x(log(2))", ylab = "x(log(2))", type = "l", col = "blue")
+plot(x, y, main = "ln y plot (y = x(log(2))", ylab = "x(log(2))", type = "l", col = "blue")
 ```
-What do we observe about the slope of of the function?
-We'll try log base 10 as well: 
+TODO: What do you observe about the slope of of the function?
+
+
+
+We'll try log base 10 as well: (Just to play around with it)
 ```{r code}
+y = (x*log10(2))   
 x <- c(-10, -7, -5, -4, -3, -2, -1, 0,1,2,3,4,5,6,7,8,10,20,100)
-plot(x, x*log10(2), main = "ln y plot (y = x(log_10(2))", ylab = "x(log_10(2))", type = "l", col = "blue")
+plot(x, y, main = "ln y plot (y = x(log_10(2))", ylab = "x(log_10(2))", type = "l", col = "blue")
 ```
 Next up we'll create a few data points to plot: $y = 3 ^ x$: 
 I'll pick a few plotting points using for my x values and use the function $plot$ to make my plot
 ```{r}
-
+y = (3^x)
 x <- c(-11, -6, -5, -3, -2, -1, 0,1,2,3,4,5,6,7,8,10,20,100)
-plot(x, 3^x, main = "Exponential Func", ylab = "y", type = "l", col = "blue" )
+plot(x, y, main = "Exponential Func", ylab = "y", type = "l", col = "blue" )
 ```
 
-We'll do the same for $1/2^x$:
+We'll do the same for $y = 1/2^x$:
 ```{r}
+y = (1/2^x)
 x <- c(-11, -6, -5, -3, -2, -1, 0,1,2,3,4,5,6,7,8,10,20,100)
-plot(x, 1/2^x, main = "Exponential Function", ylab = "y", type = "l", col = "blue" )
+plot(x, y, main = "Exponential Function", ylab = "y", type = "l", col = "blue" )
 ```
+
 
 Now let $y = 2^x$ we'll attempt to plot $ln(y)$ which in R is written as $log (y)$ such that $log(y) = xlog2$.
 Then we'll plot it to observe: 
 ```{r}
+y = (x * log(2))
 x <- c(-11, -6, -5, -3, -2, -1, 0,1,2,3,4,5,6,7,8,10,20,100)
-plot(x, x * log(2), main = "y = x (log 2)", ylab = "y", type = "l", col = "blue" )
+plot(x, y, main = "y = x (log 2)", ylab = "y", type = "l", col = "blue" )
 ```
 
-What do we observe to be the slope of the line?
+TODO: What do you observe to be the slope of the line?
 
 On our next exercise, we'll try to plot the derivative of $y$ against $y$ 
 
@@ -79,7 +87,7 @@ For $y = 2^x$: $d(2^x)/dx = 2^x log(2)$ Then we plot:
 x <- c(-11, -6, -5, -3, -2, -1, 0,1,2,3,4,5,6,7,8,10,20,100)
 plot((2^x), (2^x) * log(2), main = "y = (2^x)(log (2))", ylab = "y", type = "l", col = "blue" )
 ```
-What do we observe the slope of the line to be? 
+TODO: What do you observe the slope of the line to be? 
 
 For $y = 3^x$: $d(3^x)/dx = 3^x log(3)$ Then we plot:
 
@@ -87,33 +95,45 @@ For $y = 3^x$: $d(3^x)/dx = 3^x log(3)$ Then we plot:
 x <- c(-12, -6, -5, -4, -3, -2, -1, 0,1,2,3,4,5,6,7,8,10,20,100)
 plot((3^x), (3^x) * log(3), main = "y = (3^x)(log (3))", ylab = "y", type = "l", col = "blue" )
 ```
-Can you repeat the same for $(1/2)^x$? 
-Observe and try to explain what is happening in the plots
+TODO: Can you repeat the same for $y = (1/2)^x$?
+# Hints:  create an r chunk, then declare your x-values set, and fill out the "plot" function. (you can simply copy paste the previous chunk and make the necessary changes on the first two variables and the main)
+TODO: Observe and try to explain what is happening in the plots
 
 
 $\textbf{1.6 Inverse Functions- Logs and Inverse Trigs(Convert Lecture 4 into worksheet inverse trigs)}$
 
-We'll tan(x) for x in $[2-2]$: 
-```{}
+We'll make a plot for $y= tan(x)$ for x in $[2-2]$: 
+```{r}
+y = (tan(x))
 x <- c(-1.9, -1.8, -1.6, -1.4, -1.2, -1, 0,1.1,1.2,1.4,1.6,1.8,1.9)
-plot(x, tan(x), main = "y = tan(x)", ylab = "y", type = "l", col = "blue" )
+plot(x, y, main = "y = tan(x)", ylab = "y", type = "l", col = "blue" )
 ```
-Is tangent invertible? 
-Plot $arctan(x)$ (atan(x)) in R) for x in $[-2, 2]$:
-```{}
+TODO: Is the tangent invertible? 
+
+Plot for  $arctan(x)$ (atan(x)) in R) for x in $[-2, 2]$:
+```{r}
+y = (atan(x))
 x <- c(-1.9, -1.8, -1.6, -1.4, -1.2, -1, 0,1.2,1.4,1.6,1.8,1.9)
-plot(x, atan(x), main = "y = tan(x)", ylab = "y", type = "l", col = "blue" )
+plot(x, y, main = "y = tan(x)", ylab = "y", type = "l", col = "blue" )
 ```
 
-Find the derivative of $arctan(x)$. Then taking $y = arctan(x)$ we'll plot $dy/dx$ against $x$. 
+TODO: Find the derivative of $arctan(x)$. 
+Then taking $y = arctan(x)$ we'll plot $dy/dx$ against $x$. 
 
-```{}
+```{r}
+y = ((1)/(1 + (x^2)))
 x <- c(-2, -1.8, -1.6, -1.4, -1.2, -1, 0,1.2,1.4,1.6,1.8,2)
-plot(x, (1)/(1 + (x^2)), main = "y = d(arctan(x)) /dx", ylab = "y", type = "l", col = "blue" )
+plot(x, y, main = "y = d(arctan(x)) /dx", ylab = "y", type = "l", col = "blue" )
 ```
 
-What function does this look like?
-Finally  plot the derivative you found on top of the $dy/dx$ plot above. What do you notice? 
+TODO: What function does this look like?
+
+
+TODO: Lastly, try to plot the derivative you obtained for $arctan(x)$ on the same graph of the $dy/dx$ plot above. 
+# Hint: To make a plot on the same graph, use the R function: lines() i.e lines(x, y, col = red)
+
+TODO:What do you observe?
+
 
 
 $\textbf{1.7 Sequences and Difference Equations}$ - 
