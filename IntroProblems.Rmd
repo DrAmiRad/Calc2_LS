@@ -4,6 +4,13 @@ output:
   pdf_document: default
   html_document: default
 ---
+#Welcome to R! If this is your first time interacting with code do not panic, R is a useful mathematical tool that will make your work easier when making plots, analyzing data or manipulating functions/models.
+
+#R is a notebook like compiled language, meaning that a chunk of code can be run independent of any other as long as all required variables are available in memory or within the chunk. It also allows you to create a final neat looking HTML / PDF file when you click on "Knit". You can try to it now to check this out what this file looks like! 
+
+#Please don't try to understand the following chunk, its not necessary, but you'll need to click the little green button on the top right since the statements in the chunk will affect the variables implemented in the subsequent chunks.
+
+
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
@@ -12,10 +19,12 @@ options(knitr.duplicate.label = "allow")
 
 ## R Markdown
 
-This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
+#This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
 
-When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this:
+#When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this:
 
+
+#Checkout the TODO's and read through the green comments for better understanding
 
 1.4 and 1.5: Exponential Growth and Decay and Function Manipulation
 
@@ -104,28 +113,11 @@ plot(x, (1)/(1 + (x^2)), main = "y = d(arctan(x)) /dx", ylab = "y", type = "l", 
 ```
 
 What function does this look like?
-Then plot the derivative you found on top of the $dy/dx$ plot above. What do you notice? 
+Finally  plot the derivative you found on top of the $dy/dx$ plot above. What do you notice? 
 
 
 $\textbf{1.7 Sequences and Difference Equations}$ - 
 a representation data collected at discrete intervals of time.(A sequence is an infinite list of terms since the domain N has infinitely many terms, $a_n$ is the general term) Difference equations specifies how to obtain the next term in the sequence from the preceding terms. An equilibrium point of a difference equation i.e $a_{n+1} = f(a_n)$ is an initial value $a_1$ such that $f(a_1) = a_1$
 
 
-2.5 Exploring equilibrium - Program the Bellows 
 
-The bellows model for population density of grain beetles:
-$x_{n+1} = \frac{rx_n}{1+(ax_n)^b}$ - This is the generalized Bevelton - Holt model. We have that $r = 2$, $a = 0.01$ , $x^* = 100$. 
-We will explore what equilibrium points mean for this system/model in relation to other solutions with different starting points:
-Lets first explore $n = 50$ with $x_1 = 99$ for two cases $b = 3$ and $b = 6$
-$\textbf{First case with b = 3}$
-```{r code}
-x <- c(99, 100, 101, 102, 103, 104, 105, 106, 107, 108, 109, 110, 111, 112,113, 114, 115, 116, 117, 118, 119, 120, 121, 122, 123, 124, 125, 126, 127, 128, 129, 130, 131, 132, 133, 134, 135, 136, 137, 138, 139, 140, 141, 142, 143, 144,145, 146, 147, 148, 149)
-plot(x, (2*x)/(1 + (0.01 * x)^3), main = "y = Bellows model", ylab = "y", type = "l", col = "blue")
-```
- 
-
-
-
-
-
-Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.

@@ -15,6 +15,9 @@ knitr::opts_chunk$set(echo = TRUE)
 
 #When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this:
 
+
+#Checkout the TODO's and read through the green comments for better understanding
+
 2.5 Exploring equilibrium - Program the Bellows 
 
 The bellows model for population density of grain beetles:
@@ -29,3 +32,6 @@ b = 3 # we'll start with b = 3
 x <- seq(99, 150, by = 1) # I am creatimg a data set beginning from 99 to 150(exclusive) with increaments of 1 (for n = 50)
 plot(x, (2*x)/(1 + (0.01 * x)^b), main = "y = Bellows model", ylab = "y", type = "l", col = "blue")
 ```
+
+ 
+TODO: Now you can play around with $n$, $x_1$, and $b$ by changing their values and running the graphs to observe how the equilibrium changes.
